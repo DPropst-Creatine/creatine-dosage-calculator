@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creatine Dosage Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .input-group {
+            margin: 10px 0;
+        }
+        #weightInput {
+            display: none; /* Hidden by default, shown for options 1 and 3 */
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        #explanations {
+            margin-top: 20px;
+            text-align: left;
+        }
+        #recommended-reading {
+            margin-top: 20px;
+            text-align: left;
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 0.8em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Creatine Dosage Calculator</h1>
+    <p>Select your dosing option and enter your weight if required:</p>
+
+    <div class="input-group">
+        <input type="radio" id="option1" name="dosingOption" value="loadingMaintenance" checked onclick="toggleWeightInput()">
+        <label for="option1">Option 1: Loading & Maintenance (0.3g/kg/day loading, 5g/day maintenance)</label>
+    </div>
+    <div class="input-group">
+        <input type="radio" id="option2" name="dosingOption" value="standard" onclick="toggleWeightInput()">
+        <label for="option2">Option 2: Standard 5g/day</label>
+    </div>
+    <div class="input-group">
+        <input type="radio" id="option3" name="dosingOption" value="relative" onclick="toggleWeightInput()">
+        <label for="option3">Option 3: Relative Dosing (0.1g/kg/day)</label>
+    </div>
+
+    <div id="weightInput" class="input-group">
+        <label for="weight">Weight:</label>
+        <input type="number" id="weight" min="1" step="0.1" placeholder="Enter your weight">
+        <select id="unit">
+            <option value="kg" selected>kg</option>
+            <option value="lbs">lbs</option>
+        </select>
+    </div>
+
+    <button onclick="calculateDosage()">Calculate</button>
+    <button onclick="resetCalculator()">Reset</button>
+    <div id="result"></div>
+
+    <div id="explanations">
+        <h2>Why Choose Each Method?</h2>
+        <p><strong>Option 1: Loading & Maintenance</strong> - Ideal for quickly saturating muscle creatine stores, beneficial for athletes needing rapid performance enhancements. Research from <a href="https://pubmed.ncbi.nlm.nih.gov/23851411/" target="_blank">PubMed</a> shows this method is effective for high-intensity exercises, saturating muscles in 5-7 days.</p>
+        <p><strong>Option 2: Standard 5g/day</strong> - A simple, effective method for maintaining creatine levels over time, suitable for those who prefer a straightforward approach or have sensitivity to higher doses. Studies like <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11268231/" target="_blank">PMC</a> indicate it achieves saturation gradually, avoiding potential gastrointestinal discomfort.</p>
+        <p><strong>Option 3: Relative Dosing (0.1g/kg/day)</strong> - Tailored to individual body weight, potentially more effective for larger or smaller individuals, especially older adults. Research from <a href="https://www.degruyter.com/document/doi/10.1515/teb-2024-0019/html?lang=en" target="_blank">De Gruyter</a> suggests benefits for muscle performance in aging populations, offering a personalized strategy.</p>
+    </div>
+
+    <div id="recommended-reading">
+        <h2>Recommended Reading</h2>
+        <ul>
+            <li><a href="https://pubmed.ncbi.nlm.nih.gov/23851411/" target="_blank">Creatine supplementation - PubMed</a></li>
+            <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11268231/" target="_blank">Creatine supplementation protocols with or without training interventions on body composition: a GRADE-assessed systematic review and dose-response meta-analysis - PMC</a></li>
+            <li><a href="https://www.degruyter.com/document/doi/10.1515/teb-2024-0019/html?lang=en" target="_blank">Creatine and strength training in older adults: an update - De Gruyter</a></li>
+        </ul>
+    </div>
+
+    <footer>
+        <p>© 2025 David Propst. All rights reserved.</p>
+        <p><a href="https://propstmetabolichealth.substack.com/" target="_blank">Subscribe to my Substack</a></p>
+    </footer>
+
+    <script>
+        // Show/hide weight input based on selected option
+        function toggleWeightInput() {
+            const selectedOption = document.querySelector('input[name="dosingOption"]:checked').value;
+            const weightInputDiv = document.getElementById('weightInput');
+            weightInputDiv.style.display = (selectedOption === 'standard') ? 'none' : 'block';
+            document.getElementById('result').textContent = ''; // Clear result on option change
+        }
+
+        // Calculate dosage based on selected option
+        function calculateDosage() {
+            const selectedOption = document.querySelector('input[name="dosingOption"]:checked').value;
+            const weight = parseFloat(document.getElementById('weight').value);
+            const unit = document.getElementById('unit').value;
+            let weightKg = weight;
+            if (unit === 'lbs') {
+                weightKg = weight / 2.20462;
+            }
+            let resultText = '';
+
+            if (selectedOption === 'loadingMaintenance') {
+                if (isNaN(weightKg) || weightKg <= 0) {
+                    resultText = 'Please enter a valid weight.';
+                } else {
+                    const loadingDose = (weightKg * 0.3).toFixed(1);
+                    const maintenanceDose = 5;
+                    resultText = `Loading Phase: ${loadingDose}g/day (divide into 4 doses) for 5-7 days.<br>Maintenance Phase: ${maintenanceDose}g/day thereafter.`;
+                }
+            } else if (selectedOption === 'standard') {
+                resultText = 'Your recommended daily creatine dosage is 5g/day.';
+            } else if (selectedOption === 'relative') {
+                if (isNaN(weightKg) || weightKg <= 0) {
+                    resultText = 'Please enter a valid weight.';
+                } else {
+                    const relativeDose = (weightKg * 0.1).toFixed(1);
+                    resultText = `Your recommended daily creatine dosage is ${relativeDose}g/day.`;
+                }
+            }
+
+            document.getElementById('result').innerHTML = resultText;
+        }
+
+        // Reset calculator to initial state
+        function resetCalculator() {
+            document.getElementById('weight').value = '';
+            document.getElementById('unit').value = 'kg';
+            document.getElementById('option1').checked = true;
+            document.getElementById('result').textContent = '';
+            toggleWeightInput(); // Ensure weightInput is shown
+        }
+
+        // Initialize weight input visibility on page load
+        toggleWeightInput();
+    </script>
+</body>
+</html>

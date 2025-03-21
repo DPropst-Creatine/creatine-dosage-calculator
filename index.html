@@ -7,31 +7,39 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Creatine Dosage Calculator</h1>
-    <p>Select your dosing option and enter your weight if required:</p>
+    <div class="container">
+        <h1>Creatine Dosage Calculator</h1>
+        <p>Select your dosing option and enter your weight if required:</p>
 
-    <div class="input-group">
-        <input type="radio" id="option1" name="dosingOption" value="loadingMaintenance" checked onclick="toggleWeightInput()">
-        <label for="option1">Option 1: Loading & Maintenance (0.3g/kg/day loading, 5g/day maintenance)</label>
-    </div>
-    <div class="input-group">
-        <input type="radio" id="option2" name="dosingOption" value="standard" onclick="toggleWeightInput()">
-        <label for="option2">Option 2: Standard 5g/day</label>
-    </div>
-    <div class="input-group">
-        <input type="radio" id="option3" name="dosingOption" value="relative" onclick="toggleWeightInput()">
-        <label for="option3">Option 3: Relative Dosing (0.1g/kg/day)</label>
-    </div>
+        <div class="input-group">
+            <input type="radio" id="option1" name="dosingOption" value="loadingMaintenance" checked onclick="toggleWeightInput()">
+            <label for="option1">Option 1: Loading & Maintenance (0.3g/kg/day loading, 5g/day maintenance)</label>
+        </div>
+        
+        <div class="input-group">
+            <input type="radio" id="option2" name="dosingOption" value="standard" onclick="toggleWeightInput()">
+            <label for="option2">Option 2: Standard 5g/day</label>
+        </div>
+        
+        <div class="input-group">
+            <input type="radio" id="option3" name="dosingOption" value="relative" onclick="toggleWeightInput()">
+            <label for="option3">Option 3: Relative Dosing (0.1g/kg/day)</label>
+        </div>
 
-    <div id="weightInput" class="input-group">
-        <label for="weight">Weight:</label>
-        <input type="number" id="weight" min="1" step="0.1" placeholder="Enter your weight">
-        <select id="unit">
-            <option value="kg" selected>kg</option>
-            <option value="lbs">lbs</option>
-        </select>
-    </div>
+        <div id="weightInput" class="input-group">
+            <label for="weight">Weight:</label>
+            <input type="number" id="weight" min="1" step="0.1" placeholder="Enter your weight">
+            <select id="unit">
+                <option value="kg" selected>kg</option>
+                <option value="lbs">lbs</option>
+            </select>
+        </div>
 
+        <button onclick="calculateDosage()">Calculate</button>
+        <button onclick="resetCalculator()">Reset</button>
+        <div id="result"></div>
+    </div>
+</body>
     <button onclick="calculateDosage()">Calculate</button>
     <button onclick="resetCalculator()">Reset</button>
     <div id="result"></div>

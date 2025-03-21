@@ -1,5 +1,7 @@
 # creatine-dosage-calculator
 
+https://dpropst-creatine.github.io/creatine-dosage-calculator/
+
 Creatine Dosage Calculator
 
 A web-based calculator to determine your optimal creatine dosage based on three methods: loading and maintenance, standard 5g/day, and relative dosing (0.1g/kg/day). Supports weight input in kg or lbs and includes a reset button for easy use.

@@ -1,6 +1,7 @@
+/* === Global Styles === */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Lato', sans-serif;
+    background-color: #F3F4F6; /* Light Gray */
     margin: 0;
     padding: 40px 20px;
     display: flex;
@@ -9,7 +10,7 @@ body {
 
 .container {
     max-width: 700px;
-    background-color: #fff;
+    background-color: white;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
@@ -17,16 +18,17 @@ body {
 }
 
 h1 {
-    font-size: 1.75rem;
-    color: #333;
-    margin-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    color: #1F2937; /* Dark Blue */
     text-align: center;
+    text-transform: uppercase;
 }
 
 p, label, li {
     font-size: 1rem;
     line-height: 1.6;
-    color: #333;
+    color: #1F2937;
 }
 
 .input-group {
@@ -40,55 +42,77 @@ input, select {
     max-width: 250px;
     margin-top: 5px;
     font-size: 1rem;
-    border: 1px solid #ccc;
+    border: 2px solid #1F2937;
     border-radius: 6px;
+    background-color: white;
+    color: #1F2937;
 }
 
 button {
     margin-top: 15px;
-    margin-right: 10px;
     padding: 12px 20px;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
+    width: 100%;
+    background: #F59E0B; /* Orange Accent */
+    color: white;
+    font-weight: bold;
     font-size: 1rem;
+    border: none;
     border-radius: 6px;
     cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
 }
 
 button:hover {
-    background-color: #218838;
+    background: #d97706; /* Darker Orange */
+    transform: scale(1.05);
 }
 
 #result {
     margin-top: 20px;
+    font-size: 1.2rem;
     font-weight: bold;
-    font-size: 1.1rem;
-    color: #1a1a1a;
+    color: #1F2937;
+    background: #FDE68A; /* Light Yellow */
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    border: 2px solid #F59E0B;
 }
 
 #explanations, #recommended-reading {
     margin-top: 40px;
-    background-color: #f9f9f9;
+    background-color: white;
     padding: 20px;
     border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-left: 6px solid #1F2937;
 }
 
-#explanations h2, #recommended-reading h2 {
-    margin-bottom: 15px;
-    font-size: 1.25rem;
-    color: #0056b3;
+#suggestion {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #FDE68A; /* Light Yellow */
+    border-left: 6px solid #F59E0B; /* Orange Accent */
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
 }
 
+/* === Link Styles === */
 a {
-    color: #0056b3;
+    color: #F59E0B;
     text-decoration: none;
+    font-weight: bold;
 }
 
 a:hover {
     text-decoration: underline;
 }
 
+/* === Footer === */
 footer {
     margin-top: 40px;
     text-align: center;

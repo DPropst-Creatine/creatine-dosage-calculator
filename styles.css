@@ -32,6 +32,9 @@ p, label, li {
 }
 
 .input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     margin: 15px 0;
     text-align: left;
 }
@@ -46,6 +49,11 @@ input, select {
     border-radius: 6px;
     background-color: white;
     color: #1F2937;
+}
+
+input[type="radio"] {
+    transform: scale(1.2);
+    margin-right: 8px;
 }
 
 button {
@@ -65,7 +73,7 @@ button {
 }
 
 button:hover {
-    background: #d97706; /* Darker Orange */
+    background: #d97706;
     transform: scale(1.05);
 }
 
@@ -74,7 +82,7 @@ button:hover {
     font-size: 1.2rem;
     font-weight: bold;
     color: #1F2937;
-    background: #FDE68A; /* Light Yellow */
+    background: #FDE68A;
     padding: 15px;
     border-radius: 8px;
     text-align: center;
@@ -91,14 +99,44 @@ button:hover {
 }
 
 #suggestion {
-    margin-top: 30px;
+    margin-top: 40px;
     padding: 15px;
-    background-color: #FDE68A; /* Light Yellow */
-    border-left: 6px solid #F59E0B; /* Orange Accent */
+    background-color: #FDE68A;
+    border-left: 6px solid #F59E0B;
     text-align: center;
     font-size: 1rem;
     font-weight: bold;
     border-radius: 8px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#references {
+    text-align: left;
+    font-size: 0.9rem;
+    margin-top: 15px;
+}
+
+#references ul {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+#references li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+#references a {
+    color: #1F2937;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+#references a:hover {
+    color: #F59E0B;
+    text-decoration: underline;
 }
 
 /* === Link Styles === */

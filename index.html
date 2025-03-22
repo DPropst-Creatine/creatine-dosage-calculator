@@ -37,29 +37,27 @@
 
         <button onclick="calculateDosage()">Calculate</button>
         <button onclick="resetCalculator()">Reset</button>
-
         <div id="result"></div>
+    </div>
 
-        <div id="explanations">
-            <h2>Why Choose Each Method?</h2>
-            <p><strong>Option 1: Loading & Maintenance</strong> - Ideal for quickly saturating muscle creatine stores, beneficial for athletes needing rapid performance enhancements. Research from <a href="https://pubmed.ncbi.nlm.nih.gov/23851411/" target="_blank">PubMed</a> shows this method is effective for high-intensity exercises, saturating muscles in 5-7 days.</p>
-            <p><strong>Option 2: Standard 5g/day</strong> - A simple, effective method for maintaining creatine levels over time, suitable for those who prefer a straightforward approach or have sensitivity to higher doses. Studies like <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11268231/" target="_blank">PMC</a> indicate it achieves saturation gradually, avoiding potential gastrointestinal discomfort.</p>
-            <p><strong>Option 3: Relative Dosing (0.1g/kg/day)</strong> - Tailored to individual body weight, potentially more effective for larger or smaller individuals, especially older adults. Research from <a href="https://www.degruyter.com/document/doi/10.1515/teb-2024-0019/html?lang=en" target="_blank">De Gruyter</a> suggests benefits for muscle performance in aging populations, offering a personalized strategy.</p>
-        </div>
+    <div id="explanations" class="container">
+        <h2>Why Choose Each Method?</h2>
+        <p><strong>Option 1: Loading & Maintenance</strong> - Ideal for quickly saturating muscle creatine stores. Supported by <a href="https://jissn.biomedcentral.com/articles/10.1186/s12970-017-0173-z" target="_blank">Kreider RB et al., JISSN, 2017</a>, showing that 0.3g/kg/day loading for 5–7 days followed by 5g/day maintenance enhances muscle saturation.</p>
+        <p><strong>Option 2: Standard 5g/day</strong> - A simple, effective method for long-term maintenance, recommended for those avoiding higher doses. Backed by <a href="https://pubmed.ncbi.nlm.nih.gov/22434361/" target="_blank">Gualano B et al., Amino Acids, 2012</a>, demonstrating its efficacy in various populations.</p>
+        <p><strong>Option 3: Relative Dosing (0.1g/kg/day)</strong> - Tailored to individual body weight, often used in clinical and aging populations. Supported by <a href="https://www.mdpi.com/2077-0383/8/11/1881" target="_blank">Candow DG et al., J Clin Med, 2019</a>, highlighting benefits for muscle preservation in older adults.</p>
+    </div>
 
-        <div id="recommended-reading">
-            <h2>Recommended Reading</h2>
+    <div id="suggestion">
+        <p>💡 Want to learn more about creatine's clinical uses?</p>
+        <p><a href="https://www.creatineforhealth.com" target="_blank">Visit www.creatineforhealth.com</a></p>
+        <div id="references">
+            <p><strong>References:</strong></p>
             <ul>
-                <li><a href="https://pubmed.ncbi.nlm.nih.gov/23851411/" target="_blank">Creatine supplementation - PubMed</a></li>
-                <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11268231/" target="_blank">Creatine supplementation protocols with or without training interventions on body composition: a GRADE-assessed systematic review and dose-response meta-analysis - PMC</a></li>
-                <li><a href="https://www.degruyter.com/document/doi/10.1515/teb-2024-0019/html?lang=en" target="_blank">Creatine and strength training in older adults: an update - De Gruyter</a></li>
+                <li><a href="https://jissn.biomedcentral.com/articles/10.1186/s12970-017-0173-z" target="_blank">Kreider RB et al., JISSN, 2017 – Safety & efficacy across populations</a></li>
+                <li><a href="https://www.mdpi.com/2077-0383/8/11/1881" target="_blank">Candow DG et al., J Clin Med, 2019 – Creatine for aging muscle and fall prevention</a></li>
+                <li><a href="https://pubmed.ncbi.nlm.nih.gov/22434361/" target="_blank">Gualano B et al., Amino Acids, 2012 – Clinical benefits beyond muscle</a></li>
             </ul>
         </div>
-
-        <footer>
-            <p>© 2025 David Propst. All rights reserved.</p>
-            <p><a href="https://propstmetabolichealth.substack.com/" target="_blank">Subscribe to my Substack</a></p>
-        </footer>
     </div>
 
     <script>
@@ -67,7 +65,7 @@
             const selectedOption = document.querySelector('input[name="dosingOption"]:checked').value;
             const weightInputDiv = document.getElementById('weightInput');
             weightInputDiv.style.display = (selectedOption === 'standard') ? 'none' : 'block';
-            document.getElementById('result').textContent = ''; 
+            document.getElementById('result').textContent = '';
         }
 
         function calculateDosage() {
@@ -85,8 +83,7 @@
                     resultText = 'Please enter a valid weight.';
                 } else {
                     const loadingDose = (weightKg * 0.3).toFixed(1);
-                    const maintenanceDose = 5;
-                    resultText = `Loading Phase: ${loadingDose}g/day (divide into 4 doses) for 5-7 days.<br>Maintenance Phase: ${maintenanceDose}g/day thereafter.`;
+                    resultText = `Loading Phase: ${loadingDose}g/day (divide into 4 doses) for 5-7 days.\nMaintenance Phase: 5g/day thereafter.`;
                 }
             } else if (selectedOption === 'standard') {
                 resultText = 'Your recommended daily creatine dosage is 5g/day.';
@@ -98,7 +95,6 @@
                     resultText = `Your recommended daily creatine dosage is ${relativeDose}g/day.`;
                 }
             }
-
             document.getElementById('result').innerHTML = resultText;
         }
 
@@ -107,14 +103,10 @@
             document.getElementById('unit').value = 'kg';
             document.getElementById('option1').checked = true;
             document.getElementById('result').textContent = '';
-            toggleWeightInput(); 
+            toggleWeightInput();
         }
 
         toggleWeightInput();
     </script>
-<div id="suggestion">
-    <p>💡 Want to learn more about the benefits of creatine for health?</p>
-    <p><a href="https://www.creatineforhealth.com" target="_blank">Visit www.creatineforhealth.com</a> for research, tips, and expert insights.</p>
-</div>
 </body>
 </html>

@@ -42,9 +42,9 @@
 
     <div id="explanations" class="container">
         <h2>Why Choose Each Method?</h2>
-        <p><strong>Option 1: Loading & Maintenance</strong> - Ideal for quickly saturating muscle creatine stores. Supported by <a href="https://jissn.biomedcentral.com/articles/10.1186/s12970-017-0173-z" target="_blank">Kreider RB et al., JISSN, 2017</a>, showing that 0.3g/kg/day loading for 5–7 days followed by 5g/day maintenance enhances muscle saturation.</p>
-        <p><strong>Option 2: Standard 5g/day</strong> - A simple, effective method for long-term maintenance, recommended for those avoiding higher doses. Backed by <a href="https://pubmed.ncbi.nlm.nih.gov/22434361/" target="_blank">Gualano B et al., Amino Acids, 2012</a>, demonstrating its efficacy in various populations.</p>
-        <p><strong>Option 3: Relative Dosing (0.1g/kg/day)</strong> - Tailored to individual body weight, often used in clinical and aging populations. Supported by <a href="https://www.mdpi.com/2077-0383/8/11/1881" target="_blank">Candow DG et al., J Clin Med, 2019</a>, highlighting benefits for muscle preservation in older adults.</p>
+        <p><strong>Option 1: Loading & Maintenance</strong> – Ideal for quickly saturating muscle creatine stores. Supported by <a href="https://pubmed.ncbi.nlm.nih.gov/28615996/" target="_blank">Kreider RB et al., JISSN, 2017</a>, showing 0.3g/kg/day loading for 5–7 days followed by 5g/day maintenance enhances muscle saturation.</p>
+        <p><strong>Option 2: Standard 5g/day</strong> – A simple, effective method for long-term maintenance, recommended for those avoiding higher doses. Backed by <a href="https://pubmed.ncbi.nlm.nih.gov/30978926/" target="_blank">Candow DG et al., J Clin Med, 2019</a>, focusing on aging muscle, inflammation, and fall prevention.</p>
+        <p><strong>Option 3: Relative Dosing (0.1g/kg/day)</strong> – Tailored to individual body weight, often used in clinical and aging populations. Also relevant in neurological applications per <a href="https://onlinelibrary.wiley.com/doi/10.1080/17461391.2018.1500644" target="_blank">Dolan E et al., Eur J Sport Sci, 2018</a>.</p>
     </div>
 
     <div id="suggestion">
@@ -53,9 +53,9 @@
         <div id="references">
             <p><strong>References:</strong></p>
             <ul>
-                <li><a href="https://jissn.biomedcentral.com/articles/10.1186/s12970-017-0173-z" target="_blank">Kreider RB et al., JISSN, 2017 – Safety & efficacy across populations</a></li>
-                <li><a href="https://www.mdpi.com/2077-0383/8/11/1881" target="_blank">Candow DG et al., J Clin Med, 2019 – Creatine for aging muscle and fall prevention</a></li>
-                <li><a href="https://pubmed.ncbi.nlm.nih.gov/22434361/" target="_blank">Gualano B et al., Amino Acids, 2012 – Clinical benefits beyond muscle</a></li>
+                <li><a href="https://pubmed.ncbi.nlm.nih.gov/28615996/" target="_blank">Kreider RB et al., J Int Soc Sports Nutr. 2017;14:18. doi:10.1186/s12970-017-0173-z.</a></li>
+                <li><a href="https://pubmed.ncbi.nlm.nih.gov/30978926/" target="_blank">Candow DG et al., J Clin Med. 2019;8(4):488. doi:10.3390/jcm8040488.</a></li>
+                <li><a href="https://onlinelibrary.wiley.com/doi/10.1080/17461391.2018.1500644" target="_blank">Dolan E et al., Eur J Sport Sci. 2018;18(6):684–694. doi:10.1080/17461391.2018.1500644.</a></li>
             </ul>
         </div>
     </div>
@@ -64,7 +64,7 @@
         function toggleWeightInput() {
             const selectedOption = document.querySelector('input[name="dosingOption"]:checked').value;
             const weightInputDiv = document.getElementById('weightInput');
-            weightInputDiv.style.display = (selectedOption === 'standard') ? 'none' : 'block';
+            weightInputDiv.style.display = (selectedOption === 'standard') ? 'none' : 'flex';
             document.getElementById('result').textContent = '';
         }
 
@@ -83,7 +83,7 @@
                     resultText = 'Please enter a valid weight.';
                 } else {
                     const loadingDose = (weightKg * 0.3).toFixed(1);
-                    resultText = `Loading Phase: ${loadingDose}g/day (divide into 4 doses) for 5-7 days.\nMaintenance Phase: 5g/day thereafter.`;
+                    resultText = `Loading Phase: ${loadingDose}g/day (divide into 4 doses) for 5-7 days.<br>Maintenance Phase: 5g/day thereafter.`;
                 }
             } else if (selectedOption === 'standard') {
                 resultText = 'Your recommended daily creatine dosage is 5g/day.';

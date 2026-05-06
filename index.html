@@ -1,116 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creatine Dosage Calculator</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creatine Monohydrate Dose Guide</title>
+  <meta name="description" content="Educational calculator for common creatine monohydrate dosing ranges." />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>Creatine Dosage Calculator</h1>
-        <p>Select your dosing option and enter your weight if required:</p>
+  <main class="site-wrap">
+    <header class="hero card">
+      <p class="brand">Propst Metabolic Health</p>
+      <h1>Creatine Monohydrate Dose Guide</h1>
+      <p class="subtitle">Educational calculator for common creatine monohydrate dosing ranges.</p>
+      <p class="disclaimer">For education only. This guide does not diagnose, treat, or provide individualized medical advice.</p>
+    </header>
 
-        <div class="input-group">
-            <input type="radio" id="option1" name="dosingOption" value="loadingMaintenance" checked onclick="toggleWeightInput()">
-            <label for="option1">Option 1: Loading & Maintenance (0.3g/kg/day loading, 5g/day maintenance)</label>
+    <section class="card">
+      <h2>Calculator</h2>
+      <p class="small-note">Creatine is an add-on, not the foundation. Resistance training is the primary muscle-preservation signal, and protein supports the training response.</p>
+
+      <fieldset>
+        <legend>Choose a dosing framework</legend>
+
+        <label class="radio-card" for="simpleMaintenance">
+          <input type="radio" id="simpleMaintenance" name="dosingOption" value="simpleMaintenance" checked />
+          <span><strong>Simple maintenance</strong><br />Common maintenance range: 3–5 g/day creatine monohydrate.</span>
+        </label>
+
+        <label class="radio-card" for="weightBased">
+          <input type="radio" id="weightBased" name="dosingOption" value="weightBased" />
+          <span><strong>Weight-based estimate</strong><br />Uses 0.1 g/kg/day with practical maintenance context.</span>
+        </label>
+
+        <label class="radio-card" for="optionalLoading">
+          <input type="radio" id="optionalLoading" name="dosingOption" value="optionalLoading" />
+          <span><strong>Optional loading</strong><br />Uses 0.3 g/kg/day loading estimate, then maintenance.</span>
+        </label>
+      </fieldset>
+
+      <div id="weightInputGroup" class="weight-row hidden" aria-live="polite">
+        <div>
+          <label for="weight">Body weight</label>
+          <input type="number" id="weight" min="1" step="0.1" placeholder="Enter weight" />
         </div>
-
-        <div class="input-group">
-            <input type="radio" id="option2" name="dosingOption" value="standard" onclick="toggleWeightInput()">
-            <label for="option2">Option 2: Standard 5g/day</label>
+        <div>
+          <label for="unit">Unit</label>
+          <select id="unit">
+            <option value="kg" selected>kg</option>
+            <option value="lb">lb</option>
+          </select>
         </div>
+      </div>
 
-        <div class="input-group">
-            <input type="radio" id="option3" name="dosingOption" value="relative" onclick="toggleWeightInput()">
-            <label for="option3">Option 3: Relative Dosing (0.1g/kg/day)</label>
-        </div>
+      <div class="actions">
+        <button id="calculateBtn" type="button">Calculate</button>
+        <button id="resetBtn" type="button" class="secondary">Reset</button>
+      </div>
 
-        <div id="weightInput" class="input-group">
-            <label for="weight">Weight:</label>
-            <input type="number" id="weight" min="1" step="0.1" placeholder="Enter your weight">
-            <select id="unit">
-                <option value="kg" selected>kg</option>
-                <option value="lbs">lbs</option>
-            </select>
-        </div>
+      <div id="result" class="result hidden" role="status" aria-live="polite"></div>
+    </section>
 
-        <button onclick="calculateDosage()">Calculate</button>
-        <button onclick="resetCalculator()">Reset</button>
-        <div id="result"></div>
-    </div>
+    <section class="card callout">
+      <h2>Review with your clinician first</h2>
+      <ul>
+        <li>Chronic kidney disease</li>
+        <li>Abnormal kidney function</li>
+        <li>Single kidney or kidney transplant</li>
+        <li>Nephrology follow-up</li>
+        <li>Prescribed protein restriction</li>
+        <li>Recurrent dehydration, vomiting, or poor fluid intake</li>
+        <li>Pregnancy or breastfeeding</li>
+        <li>Significant liver disease or complex medical illness</li>
+        <li>Multiple medications affecting kidney function or fluid balance</li>
+        <li>Clinician instructed you to avoid supplements</li>
+      </ul>
+      <p class="small-note">Creatine can increase creatinine because creatinine is a breakdown product of creatine. This does not automatically mean kidney damage, but it can complicate lab interpretation. Tell your clinician if you take creatine before kidney labs.</p>
+    </section>
 
-    <div id="explanations" class="container">
-        <h2>Why Choose Each Method?</h2>
-        <p><strong>Option 1: Loading & Maintenance</strong> – Ideal for quickly saturating muscle creatine stores. Supported by <a href="https://pubmed.ncbi.nlm.nih.gov/28615996/" target="_blank">Kreider RB et al., JISSN, 2017</a>, showing 0.3g/kg/day loading for 5–7 days followed by 5g/day maintenance enhances muscle saturation.</p>
-        <p><strong>Option 2: Standard 5g/day</strong> – A simple, effective method for long-term maintenance, recommended for those avoiding higher doses. Backed by <a href="https://pubmed.ncbi.nlm.nih.gov/30978926/" target="_blank">Candow DG et al., J Clin Med, 2019</a>, focusing on aging muscle, inflammation, and fall prevention.</p>
-        <p><strong>Option 3: Relative Dosing (0.1g/kg/day)</strong> – Tailored to individual body weight, often used in clinical and aging populations. Also relevant in neurological applications per <a href="https://onlinelibrary.wiley.com/doi/10.1080/17461391.2018.1500644" target="_blank">Dolan E et al., Eur J Sport Sci, 2018</a>.</p>
-    </div>
+    <section class="card">
+      <h2>Scale-weight context</h2>
+      <p>Creatine may increase water stored inside muscle tissue. A small early scale increase can occur and is not the same as fat gain. Watch waist, training, symptoms, and longer-term trends.</p>
+    </section>
 
-    <div id="suggestion">
-        <p>💡 Want to learn more about creatine's clinical uses?</p>
-        <p><a href="https://www.creatineforhealth.com" target="_blank">Visit www.creatineforhealth.com</a></p>
-        <div id="references">
-            <p><strong>References:</strong></p>
-            <ul>
-                <li><a href="https://pubmed.ncbi.nlm.nih.gov/28615996/" target="_blank">Kreider RB et al., J Int Soc Sports Nutr. 2017;14:18. doi:10.1186/s12970-017-0173-z.</a></li>
-                <li><a href="https://pubmed.ncbi.nlm.nih.gov/30978926/" target="_blank">Candow DG et al., J Clin Med. 2019;8(4):488. doi:10.3390/jcm8040488.</a></li>
-                <li><a href="https://onlinelibrary.wiley.com/doi/10.1080/17461391.2018.1500644" target="_blank">Dolan E et al., Eur J Sport Sci. 2018;18(6):684–694. doi:10.1080/17461391.2018.1500644.</a></li>
-            </ul>
-        </div>
-        <div style="margin-top: 20px;">
-            <p>📝 Like this tool? Get weekly deep-dives, research breakdowns, and tools like this straight to your inbox.</p>
-            <p><a href="https://propstmetabolichealth.substack.com" target="_blank">👉 Subscribe to my Substack</a></p>
-        </div>
-    </div>
+    <section class="card">
+      <h2>GLP-1 context</h2>
+      <p>For GLP-1 or GLP-1/GIP users, creatine is not the first problem to solve if appetite, hydration, protein intake, vomiting, constipation, or training consistency are poor. Fix the foundation first.</p>
+      <p>Creatine may support training quality, strength/power adaptations, and lean-mass gains when paired with resistance training, but it does not replace lifting, protein, hydration, adequate intake, or clinician-guided care.</p>
+    </section>
 
-    <script>
-        function toggleWeightInput() {
-            const selectedOption = document.querySelector('input[name="dosingOption"]:checked').value;
-            const weightInputDiv = document.getElementById('weightInput');
-            weightInputDiv.style.display = (selectedOption === 'standard') ? 'none' : 'flex';
-            document.getElementById('result').textContent = '';
+    <section class="card">
+      <h2>References</h2>
+      <ul>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/28615996/" target="_blank" rel="noopener noreferrer">Kreider RB et al. J Int Soc Sports Nutr. 2017;14:18.</a></li>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/30978926/" target="_blank" rel="noopener noreferrer">Candow DG et al. J Clin Med. 2019;8(4):488.</a></li>
+        <li><a href="https://onlinelibrary.wiley.com/doi/10.1080/17461391.2018.1500644" target="_blank" rel="noopener noreferrer">Dolan E et al. Eur J Sport Sci. 2018;18(6):684–694.</a></li>
+      </ul>
+      <!-- TODO: Verify citation scope before expanding neurological or fall-prevention claims. -->
+    </section>
+  </main>
+
+  <script>
+    const dosingRadios = document.querySelectorAll('input[name="dosingOption"]');
+    const weightInputGroup = document.getElementById('weightInputGroup');
+    const result = document.getElementById('result');
+
+    function selectedOption() {
+      return document.querySelector('input[name="dosingOption"]:checked').value;
+    }
+
+    function toggleWeightInput() {
+      const needsWeight = selectedOption() !== 'simpleMaintenance';
+      weightInputGroup.classList.toggle('hidden', !needsWeight);
+      result.classList.add('hidden');
+      result.innerHTML = '';
+    }
+
+    function parseWeightKg() {
+      const weight = parseFloat(document.getElementById('weight').value);
+      const unit = document.getElementById('unit').value;
+
+      if (Number.isNaN(weight) || weight <= 0) {
+        return { valid: false };
+      }
+
+      const kg = unit === 'lb' ? weight / 2.20462 : weight;
+      return { valid: true, originalWeight: weight, unit, kg };
+    }
+
+    function renderResult(html) {
+      result.innerHTML = html;
+      result.classList.remove('hidden');
+    }
+
+    function calculate() {
+      const option = selectedOption();
+
+      if (option === 'simpleMaintenance') {
+        renderResult(`
+          <h3>Simple maintenance</h3>
+          <p>Common maintenance range: <strong>3–5 g/day</strong> creatine monohydrate.</p>
+          <p>Timing usually matters less than consistency. Many adults use 3–5 g/day without loading.</p>
+        `);
+        return;
+      }
+
+      const parsed = parseWeightKg();
+      if (!parsed.valid) {
+        renderResult('<p class="error">Please enter a valid body weight above 0.</p>');
+        return;
+      }
+
+      if (option === 'weightBased') {
+        const dose = parsed.kg * 0.1;
+        let extra = '';
+        if (dose > 5) {
+          extra = '<p>This is a weight-based estimate, but many users do not need to exceed 5 g/day unless using a specific protocol or clinician-guided plan.</p>';
         }
 
-        function calculateDosage() {
-            const selectedOption = document.querySelector('input[name="dosingOption"]:checked').value;
-            const weight = parseFloat(document.getElementById('weight').value);
-            const unit = document.getElementById('unit').value;
-            let weightKg = weight;
-            if (unit === 'lbs') {
-                weightKg = weight / 2.20462;
-            }
-            let resultText = '';
+        renderResult(`
+          <h3>Weight-based estimate</h3>
+          <p>Entered weight: <strong>${parsed.originalWeight.toFixed(1)} ${parsed.unit}</strong> (${parsed.kg.toFixed(1)} kg).</p>
+          <p>0.1 g/kg/day estimate: <strong>${dose.toFixed(1)} g/day</strong>.</p>
+          <p>Practical maintenance context: many adults use <strong>3–5 g/day</strong>.</p>
+          ${extra}
+        `);
+        return;
+      }
 
-            if (selectedOption === 'loadingMaintenance') {
-                if (isNaN(weightKg) || weightKg <= 0) {
-                    resultText = 'Please enter a valid weight.';
-                } else {
-                    const loadingDose = (weightKg * 0.3).toFixed(1);
-                    resultText = `Loading Phase: ${loadingDose}g/day (divide into 4 doses) for 5-7 days.<br>Maintenance Phase: 5g/day thereafter.`;
-                }
-            } else if (selectedOption === 'standard') {
-                resultText = 'Your recommended daily creatine dosage is 5g/day.';
-            } else if (selectedOption === 'relative') {
-                if (isNaN(weightKg) || weightKg <= 0) {
-                    resultText = 'Please enter a valid weight.';
-                } else {
-                    const relativeDose = (weightKg * 0.1).toFixed(1);
-                    resultText = `Your recommended daily creatine dosage is ${relativeDose}g/day.`;
-                }
-            }
-            document.getElementById('result').innerHTML = resultText;
-        }
+      if (option === 'optionalLoading') {
+        const loading = parsed.kg * 0.3;
+        renderResult(`
+          <h3>Optional loading</h3>
+          <p>Entered weight: <strong>${parsed.originalWeight.toFixed(1)} ${parsed.unit}</strong> (${parsed.kg.toFixed(1)} kg).</p>
+          <p>Loading estimate (0.3 g/kg/day): <strong>${loading.toFixed(1)} g/day</strong>.</p>
+          <p>Typical approach: split into 3–4 doses for 5–7 days, followed by <strong>3–5 g/day</strong> maintenance.</p>
+          <p>Loading is optional and may increase GI symptoms or short-term water-weight change.</p>
+        `);
+      }
+    }
 
-        function resetCalculator() {
-            document.getElementById('weight').value = '';
-            document.getElementById('unit').value = 'kg';
-            document.getElementById('option1').checked = true;
-            document.getElementById('result').textContent = '';
-            toggleWeightInput();
-        }
+    function resetCalculator() {
+      document.getElementById('simpleMaintenance').checked = true;
+      document.getElementById('weight').value = '';
+      document.getElementById('unit').value = 'kg';
+      result.innerHTML = '';
+      result.classList.add('hidden');
+      toggleWeightInput();
+    }
 
-        toggleWeightInput();
-    </script>
+    dosingRadios.forEach(radio => radio.addEventListener('change', toggleWeightInput));
+    document.getElementById('calculateBtn').addEventListener('click', calculate);
+    document.getElementById('resetBtn').addEventListener('click', resetCalculator);
+    toggleWeightInput();
+  </script>
 </body>
 </html>

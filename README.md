@@ -1,76 +1,41 @@
-# Creatine Monohydrate Dose Guide
+# Exercise Oncology: From Advice to Prescription
 
-Static educational site for discussing common creatine monohydrate dosing ranges in a muscle-preservation context.
+Medically careful, evidence-based educational website built with React, Vite, and Tailwind CSS.
 
-Live entry point: `index.html`.
+## Medical scope and integrity rules
+- Exercise does **not** replace standard oncology treatment.
+- CHALLENGE is described specifically as resected stage III or high-risk stage II colon cancer **after adjuvant chemotherapy**.
+- Human outcomes are separated from preclinical/translational mechanisms.
+- Adverse events are included and not minimized.
+- Casual advice to walk more is not treated as equivalent to the CHALLENGE intervention.
+- The site does not claim exercise cures cancer.
+- Specific exercise prescriptions require individualized clinical oversight.
+- Safety considerations are visible in sections discussing intensity and training progression.
+- Do not invent citations, trial results, or URLs.
 
-## Project purpose
-This project provides a polished, plain-language educational calculator for common creatine monohydrate dosing frameworks:
-- simple maintenance (3–5 g/day)
-- weight-based estimate (0.1 g/kg/day)
-- optional loading estimate (0.3 g/kg/day for 5–7 days), then maintenance
-
-Core framing in the site:
-- creatine is an add-on, not the foundation
-- resistance training is the primary muscle-preservation signal
-- protein supports the training response
-- creatine does not replace lifting, protein, hydration, adequate intake, or clinician-guided care
-
-## Educational-only disclaimer
-This site is for education only and is not individualized medical advice. It does not diagnose, treat, or determine an “optimal” dose for any individual.
-
-## Calculator options
-1. **Simple maintenance**
-   - Presents common maintenance range: 3–5 g/day.
-   - Notes timing usually matters less than consistency.
-
-2. **Weight-based estimate**
-   - Accepts body weight in lb or kg.
-   - Converts and displays kg value.
-   - Calculates 0.1 g/kg/day.
-   - Includes practical context that many adults use 3–5 g/day.
-
-3. **Optional loading**
-   - Accepts body weight in lb or kg.
-   - Calculates 0.3 g/kg/day.
-   - Presents split dosing over 5–7 days, then 3–5 g/day maintenance.
-   - Notes loading is optional and may increase GI symptoms or short-term water-weight change.
-
-## Local preview
-Because this is a static site, you can preview in several ways.
-
-### Option A: open directly
-Open `index.html` in a browser.
-
-### Option B: run a local static server
+## Local setup
 ```bash
-python3 -m http.server 8000
+npm install
+npm run dev
 ```
-Then visit `http://localhost:8000`.
 
-## Deployment
+## Production build
+```bash
+npm run build
+npm run preview
+```
 
-### GitHub Pages
-1. Push this repository to GitHub.
-2. In **Settings → Pages**, set:
-   - Source: **Deploy from a branch**
-   - Branch: `main` (or preferred branch), folder `/ (root)`
-3. Save and wait for deployment.
+## Netlify deployment
+This repository is Netlify-ready.
 
-### Netlify
-This repo includes `netlify.toml` for static hosting.
-- Build command: *(leave blank)*
-- Publish directory: `.`
+- Build command: `npm run build`
+- Publish directory: `dist`
 
-## Limitations
-- Educational calculator only; no personalization beyond simple arithmetic.
-- No clinical screening logic beyond visible caution prompts.
-- No claims of individualized efficacy or safety.
+`netlify.toml` is configured with these values.
 
-## Source/citation notes
-- References are listed on-page and retained from the prior version.
-- Language is intentionally conservative to avoid overclaiming unsupported outcomes.
-- If reference scope is expanded in future, verify article alignment first.
+## Content TODOs before final publication
+- Verify and insert Professor Robert Newton Substack URLs.
+- Verify and complete ACSM and fatigue-guideline reference metadata.
 
-## License
-MIT License. See [LICENSE](LICENSE).
+## Disclaimer
+This project is for education only and is not medical advice.

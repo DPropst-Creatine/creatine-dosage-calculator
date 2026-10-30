@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystery Dinner Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fdf8f5;
+            color: #333;
+        }
+
+        .tab-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .tab-btn.active {
+            background-color: #e63946;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 6px rgba(230, 57, 70, 0.3);
+        }
+
+        .menu-card {
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Staggered animation delays for items */
+        .menu-card:nth-child(1) { animation-delay: 0.1s; }
+        .menu-card:nth-child(2) { animation-delay: 0.2s; }
+        .menu-card:nth-child(3) { animation-delay: 0.3s; }
+        .menu-card:nth-child(4) { animation-delay: 0.4s; }
+        .menu-card:nth-child(5) { animation-delay: 0.5s; }
+        .menu-card:nth-child(6) { animation-delay: 0.6s; }
+        .menu-card:nth-child(7) { animation-delay: 0.7s; }
+        .menu-card:nth-child(8) { animation-delay: 0.8s; }
+
+        .price-badge {
+            background: linear-gradient(135deg, #f4a261, #e76f51);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header Section -->
+    <header class="bg-[#1d3557] text-white py-12 px-4 shadow-lg text-center relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 flex items-center justify-around pointer-events-none text-5xl">
+            <i class="fas fa-utensils"></i>
+            <i class="fas fa-pizza-slice"></i>
+            <i class="fas fa-hamburger"></i>
+            <i class="fas fa-cocktail"></i>
+            <i class="fas fa-ice-cream"></i>
+        </div>
+        <div class="relative z-10 max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 tracking-tight">The Secret Spot</h1>
+            <p class="text-xl md:text-2xl font-light text-blue-200">Take a peek at tomorrow night's dinner. The location stays a secret!</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-8 max-w-6xl">
+        
+        <!-- Navigation Tabs -->
+        <div class="flex flex-wrap justify-center gap-3 mb-10" id="tabs-container">
+            <!-- Tabs injected by JS -->
+        </div>
+
+        <!-- Section Title -->
+        <div class="text-center mb-8">
+            <h2 id="section-title" class="text-3xl font-bold text-[#1d3557] border-b-4 border-[#e63946] inline-block pb-2 px-4">Loading...</h2>
+            <p id="section-note" class="text-gray-500 mt-2 italic text-sm min-h-[20px]"></p>
+        </div>
+
+        <!-- Menu Grid -->
+        <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Menu items injected by JS -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#1d3557] text-white py-6 text-center mt-auto">
+        <p class="font-light tracking-wider">See you Saturday night! Menu and prices may change. <i class="fas fa-car ml-2 text-[#e63946]"></i></p>
+    </footer>
+
+    <!-- Interactive Logic -->
+    <script>
+        // Menu Data structured by categories
+        const menuData = [
+        {
+                "id": "standards",
+                "title": "Standards!",
+                "icon": "fa-star",
+                "note": "Add chicken +$5 or tofu +$4 to any salad.",
+                "items": [
+                        {
+                                "name": "Creamy Tuna Dip",
+                                "price": "$6",
+                                "desc": "Pickled jalapeños and lime, served with pickled onion, radish, and Ritz-style crackers.",
+                                "tags": [
+                                        "Gluten-free option"
+                                ]
+                        },
+                        {
+                                "name": "Fried Pickles",
+                                "price": "$7",
+                                "desc": "Hot dilly spears or okra in a cornmeal crust, served with ranch or honey dill.",
+                                "tags": [
+                                        "Vegetarian"
+                                ]
+                        },
+                        {
+                                "name": "Sheet Pan Nachos",
+                                "price": "$10.75",
+                                "desc": "Crispy tortilla chips with cheese, chipotle beans, salsa verde, sour cream, onion, pickled jalapeños, and roasted tomato salsa.",
+                                "tags": [
+                                        "Vegetarian",
+                                        "Gluten free",
+                                        "Add ground beef, tofu chorizo, or smoked chicken +$4"
+                                ]
+                        },
+                        {
+                                "name": "Autumn Kale Salad",
+                                "price": "$13.25",
+                                "desc": "Radicchio, honey-roasted pears, shaved red onion, granola, feta, and roasted shallot and pear vinaigrette.",
+                                "tags": [
+                                        "Vegetarian option",
+                                        "Vegan option",
+                                        "Gluten-free option"
+                                ]
+                        },
+                        {
+                                "name": "Caesar Salad",
+                                "price": "$11",
+                                "desc": "Romaine, parmesan, anchovy dressing, and brioche croutons.",
+                                "tags": [
+                                        "Gluten-free option"
+                                ]
+                        },
+                        {
+                                "name": "Roasted Roots Panzanella",
+                                "price": "$14.50",
+                                "desc": "Mixed greens, candied pecans, rosemary-roasted root vegetables, goat cheese, red onion, croutons, and maple vinaigrette.",
+                                "tags": [
+                                        "Vegetarian option",
+                                        "Vegan option"
+                                ]
+                        }
+                ]
+        },
+        {
+                "id": "usual",
+                "title": "The Usual!",
+                "icon": "fa-burger",
+                "note": "Add fries or a side salad +$3. (Chicken +$5 or tofu +$4 for the veggie wrap.)",
+                "items": [
+                        {
+                                "name": "Crispers",
+                                "price": "$10.50",
+                                "desc": "Fried chicken tenders with your choice of ranch, honey dill, buffalo, barbecue, or harissa mayo.",
+                                "tags": [
+                                        "Two extra tenders +$4"
+                                ]
+                        },
+                        {
+                                "name": "Veggie Wrap",
+                                "price": "$13",
+                                "desc": "Roasted roots, grilled onions, charred Napa cabbage, white bean hummus, and spicy balsamic glaze in pita bread.",
+                                "tags": [
+                                        "Vegan",
+                                        "Add chicken +$5 or tofu +$4"
+                                ]
+                        },
+                        {
+                                "name": "Cheeseburger",
+                                "price": "$15.25",
+                                "desc": "Half-pound chuck and short-rib blend, American cheese, smoked chipotle mayo, lettuce, crispy onion, and house bread-and-butter pickles on a toasted brioche bun.",
+                                "tags": [
+                                        "Gluten-free option",
+                                        "Add bacon +$3",
+                                        "Cooked medium or well done"
+                                ]
+                        },
+                        {
+                                "name": "Cubano",
+                                "price": "$13",
+                                "desc": "Pork mojo, Black Forest ham, pickles, dijonaise, and Swiss cheese, pressed in Cuban bread.",
+                                "tags": [
+                                        "Gluten-free option"
+                                ]
+                        },
+                        {
+                                "name": "Cider-Braised Apples & Smoked Chicken Toast",
+                                "price": "$12",
+                                "desc": "Pickled onions, scallions, lemon-thyme ricotta, and spicy balsamic reduction on grilled focaccia.",
+                                "tags": [
+                                        "Vegetarian option",
+                                        "Add bacon +$3"
+                                ]
+                        },
+                        {
+                                "name": "Chili-Rubbed Pork Sandwich",
+                                "price": "$12.50",
+                                "desc": "Chili-rubbed pork loin with herby mayo, pickled vegetables, and jalapeños.",
+                                "tags": [
+                                        "Vegetarian option: substitute chili-rubbed tofu",
+                                        "Gluten-free option"
+                                ]
+                        },
+                        {
+                                "name": "Turkey & Swiss Sandwich",
+                                "price": "$13",
+                                "desc": "Turkey, Swiss, whole-grain aioli, shredded lettuce, dill pickles, and tomato on toasted white bread.",
+                                "tags": [
+                                        "Gluten-free option"
+                                ]
+                        },
+                        {
+                                "name": "Adult Grilled Cheese & Tomato Bisque",
+                                "price": "$12",
+                                "desc": "Oaxacan, sharp cheddar, and parmesan cheeses on white bread, served with roasted tomato bisque and cashew crema.",
+                                "tags": [
+                                        "Vegetarian",
+                                        "Grilled cheese alone $8.50",
+                                        "Bisque alone $8"
+                                ]
+                        }
+                ]
+        },
+        {
+                "id": "sides",
+                "title": "Sides!",
+                "icon": "fa-utensils",
+                "note": "A little extra for the table.",
+                "items": [
+                        {
+                                "name": "Fries",
+                                "price": "$6",
+                                "desc": "French fries.",
+                                "tags": [
+                                        "Add queso +$3"
+                                ]
+                        },
+                        {
+                                "name": "Chips & Salsa",
+                                "price": "$5",
+                                "desc": "Chips served with salsa.",
+                                "tags": []
+                        },
+                        {
+                                "name": "White Bean Hummus & Veggies",
+                                "price": "$8",
+                                "desc": "White bean hummus with pita chips and crudités.",
+                                "tags": [
+                                        "Vegan"
+                                ]
+                        },
+                        {
+                                "name": "Tomato Bisque",
+                                "price": "$8",
+                                "desc": "Roasted tomato bisque with cashew crema.",
+                                "tags": [
+                                        "Vegan"
+                                ]
+                        }
+                ]
+        },
+        {
+                "id": "dessert",
+                "title": "Dessert & Kids!",
+                "icon": "fa-ice-cream",
+                "note": "Kids' meals are for children under age 10.",
+                "items": [
+                        {
+                                "name": "S'mores Cake",
+                                "price": "$7",
+                                "desc": "S'mores chocolate cake with graham cracker crumble, toasted marshmallows, and honey-chocolate sauce.",
+                                "tags": [
+                                        "Dessert"
+                                ]
+                        },
+                        {
+                                "name": "Kids' Grilled Cheese",
+                                "price": "$6",
+                                "desc": "Grilled cheese with fries.",
+                                "tags": [
+                                        "Vegetarian",
+                                        "Under 10"
+                                ]
+                        },
+                        {
+                                "name": "Kids' Two Crispers",
+                                "price": "$6",
+                                "desc": "Two fried chicken tenders with fries.",
+                                "tags": [
+                                        "Under 10"
+                                ]
+                        }
+                ]
+        },
+        {
+                "id": "drinks",
+                "title": "Drinks!",
+                "icon": "fa-glass-cheers",
+                "note": "A few specialty names are simplified to preserve the surprise. Cocktail prices are not shown in the supplied menu photo; ask at the bar.",
+                "items": [
+                        {
+                                "name": "Frozen Irish Coffee",
+                                "price": "$9.50",
+                                "desc": "Jameson, brandy, cold brew, and ice cream.",
+                                "group": "Specials & Cocktails",
+                                "tags": []
+                        },
+                        {
+                                "name": "Rum & Pisco Punch",
+                                "price": "Ask",
+                                "desc": "Dark rum punch with Campari and pisco.",
+                                "group": "Specials & Cocktails",
+                                "tags": [
+                                        "Price not listed on photo"
+                                ]
+                        },
+                        {
+                                "name": "Bergamot Vodka Cocktail",
+                                "price": "Ask",
+                                "desc": "Bergamot vodka, lemon, Earl Grey tea, vanilla, and black currant.",
+                                "group": "Specials & Cocktails",
+                                "tags": [
+                                        "Price not listed on photo"
+                                ]
+                        },
+                        {
+                                "name": "Bourbon & Aperitif Cocktail",
+                                "price": "Ask",
+                                "desc": "Bourbon, Cynar, Aperol, and lemon.",
+                                "group": "Specials & Cocktails",
+                                "tags": [
+                                        "Price not listed on photo"
+                                ]
+                        },
+                        {
+                                "name": "Pineapple Cilantro Margarita",
+                                "price": "Ask",
+                                "desc": "Tequila, mezcal, triple sec, cilantro, pineapple, and lime.",
+                                "group": "Specials & Cocktails",
+                                "tags": [
+                                        "Mocktail available $6"
+                                ]
+                        },
+                        {
+                                "name": "Honey Hibiscus Collins",
+                                "price": "Ask",
+                                "desc": "Gin, hibiscus, honey, lemon, and soda.",
+                                "group": "Specials & Cocktails",
+                                "tags": [
+                                        "Mocktail available $6"
+                                ]
+                        },
+                        {
+                                "name": "Sparkling Brut",
+                                "price": "$12",
+                                "desc": "Casalotta, Italy.",
+                                "group": "Wine by the Glass",
+                                "tags": []
+                        },
+                        {
+                                "name": "Chardonnay",
+                                "price": "$12",
+                                "desc": "Tarrica, California.",
+                                "group": "Wine by the Glass",
+                                "tags": []
+                        },
+                        {
+                                "name": "Sauvignon Blanc",
+                                "price": "$12",
+                                "desc": "Prisma, Chile.",
+                                "group": "Wine by the Glass",
+                                "tags": []
+                        },
+                        {
+                                "name": "Rosé",
+                                "price": "$12",
+                                "desc": "Domaine Vetriccie, France.",
+                                "group": "Wine by the Glass",
+                                "tags": []
+                        },
+                        {
+                                "name": "Pinot Noir",
+                                "price": "$12",
+                                "desc": "El Viejo Del Valle, Valle Central, Chile.",
+                                "group": "Wine by the Glass",
+                                "tags": []
+                        },
+                        {
+                                "name": "Cabernet Sauvignon",
+                                "price": "$12",
+                                "desc": "Santa Cristina, Tuscany, Italy.",
+                                "group": "Wine by the Glass",
+                                "tags": []
+                        },
+                        {
+                                "name": "House Lager",
+                                "price": "$6.50",
+                                "desc": "Atomic Clock, 4.2% ABV. House draft name shortened for the mystery.",
+                                "group": "Draft Beer & Cider",
+                                "tags": []
+                        },
+                        {
+                                "name": "Seasonal Sour",
+                                "price": "$8",
+                                "desc": "Edmund's Oast, 5.5% ABV.",
+                                "group": "Draft Beer & Cider",
+                                "tags": []
+                        },
+                        {
+                                "name": "Italian Pilsner",
+                                "price": "$7.50",
+                                "desc": "Wiseman Brewing, 5.2% ABV.",
+                                "group": "Draft Beer & Cider",
+                                "tags": []
+                        },
+                        {
+                                "name": "Surf Wax IPA",
+                                "price": "$8",
+                                "desc": "Burial Brewing, 6.8% ABV.",
+                                "group": "Draft Beer & Cider",
+                                "tags": []
+                        },
+                        {
+                                "name": "Opacity Hazy IPA",
+                                "price": "$8.50",
+                                "desc": "The Glass Jug, 7.3% ABV.",
+                                "group": "Draft Beer & Cider",
+                                "tags": []
+                        },
+                        {
+                                "name": "Scottish Ale",
+                                "price": "$8",
+                                "desc": "Ponysaurus Brewing, 7% ABV.",
+                                "group": "Draft Beer & Cider",
+                                "tags": []
+                        },
+                        {
+                                "name": "Eno River Pale Ale",
+                                "price": "$7.50",
+                                "desc": "Eno River Brewing, 5.3% ABV.",
+                                "group": "Draft Beer & Cider",
+                                "tags": []
+                        },
+                        {
+                                "name": "Oktoberfestbier",
+                                "price": "$7.50",
+                                "desc": "Blackbird Brewing, 5.9% ABV.",
+                                "group": "Draft Beer & Cider",
+                                "tags": []
+                        },
+                        {
+                                "name": "Rotating Tap",
+                                "price": "$7.50",
+                                "desc": "Ask about the current selection.",
+                                "group": "Draft Beer & Cider",
+                                "tags": []
+                        },
+                        {
+                                "name": "Seasonal Dry Cider",
+                                "price": "$6.50",
+                                "desc": "Botanist & Barrel, 7.9% ABV. 8 oz pour.",
+                                "group": "Draft Beer & Cider",
+                                "tags": []
+                        },
+                        {
+                                "name": "Miller Lite",
+                                "price": "$4",
+                                "desc": "Can or bottle.",
+                                "group": "Cans & Bottles",
+                                "tags": []
+                        },
+                        {
+                                "name": "Tecate",
+                                "price": "$4",
+                                "desc": "Can or bottle.",
+                                "group": "Cans & Bottles",
+                                "tags": []
+                        },
+                        {
+                                "name": "PBR",
+                                "price": "$4",
+                                "desc": "Can or bottle.",
+                                "group": "Cans & Bottles",
+                                "tags": []
+                        },
+                        {
+                                "name": "Hard Seltzer",
+                                "price": "$5",
+                                "desc": "Can or bottle.",
+                                "group": "Cans & Bottles",
+                                "tags": []
+                        },
+                        {
+                                "name": "Athletic N/A IPA",
+                                "price": "$6",
+                                "desc": "Nonalcoholic IPA.",
+                                "group": "Cans & Bottles",
+                                "tags": [
+                                        "Nonalcoholic"
+                                ]
+                        },
+                        {
+                                "name": "Athletic N/A Golden",
+                                "price": "$6",
+                                "desc": "Nonalcoholic golden beer.",
+                                "group": "Cans & Bottles",
+                                "tags": [
+                                        "Nonalcoholic"
+                                ]
+                        },
+                        {
+                                "name": "Soft Drinks",
+                                "price": "$3.50",
+                                "desc": "Coke, Sprite, Diet Coke, ginger ale, and ginger beer.",
+                                "group": "Soft Drinks",
+                                "tags": [
+                                        "Nonalcoholic"
+                                ]
+                        }
+                ]
+        }
+];
+
+        let currentTab = 'standards';
+
+        const tabsContainer = document.getElementById('tabs-container');
+        const menuGrid = document.getElementById('menu-grid');
+        const sectionTitle = document.getElementById('section-title');
+        const sectionNote = document.getElementById('section-note');
+
+        // Initialize Tabs
+        function initTabs() {
+            menuData.forEach(category => {
+                const btn = document.createElement('button');
+                btn.className = `tab-btn px-6 py-3 rounded-full font-semibold text-sm md:text-base border-2 border-transparent bg-white text-[#1d3557] shadow-sm hover:shadow-md flex items-center gap-2 ${category.id === currentTab ? 'active' : ''}`;
+                btn.innerHTML = `<i class="fas ${category.icon}"></i> ${category.title}`;
+                btn.onclick = () => switchTab(category.id);
+                tabsContainer.appendChild(btn);
+            });
+        }
+
+        // Switch Tab and Render Items
+        function switchTab(tabId) {
+            currentTab = tabId;
+            
+            // Update active state on buttons
+            document.querySelectorAll('.tab-btn').forEach((btn, index) => {
+                if (menuData[index].id === tabId) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            renderMenu();
+        }
+
+        // Render Menu Cards
+        function renderMenu() {
+            const category = menuData.find(c => c.id === currentTab);
+            
+            // Update Header
+            sectionTitle.innerHTML = `<i class="fas ${category.icon} mr-2"></i>${category.title}`;
+            sectionNote.textContent = category.note;
+
+            // Clear Grid
+            menuGrid.innerHTML = '';
+
+            // Populate Grid
+            let lastGroup = null;
+            category.items.forEach(item => {
+                if (item.group && item.group !== lastGroup) {
+                    const heading = document.createElement('h3');
+                    heading.className = 'col-span-full text-xl md:text-2xl font-bold text-[#1d3557] border-b-2 border-[#e63946] pt-6 pb-2';
+                    heading.textContent = item.group;
+                    menuGrid.appendChild(heading);
+                    lastGroup = item.group;
+                }
+                const card = document.createElement('div');
+                card.className = 'menu-card bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col h-full relative overflow-hidden';
+                
+                // Optional Tag HTML
+                let tagsHtml = '';
+                if (item.tags && item.tags.length > 0) {
+                    tagsHtml = `<div class="flex flex-wrap gap-2 mt-4">
+                        ${item.tags.map(tag => `<span class="bg-gray-100 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded-full border border-gray-200">${tag}</span>`).join('')}
+                    </div>`;
+                }
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-xl font-bold text-[#1d3557] pr-4">${item.name}</h3>
+                        <span class="price-badge text-white font-bold py-1 px-3 rounded-full text-sm shadow-sm whitespace-nowrap">${item.price}</span>
+                    </div>
+                    <p class="text-gray-600 text-sm flex-grow leading-relaxed">${item.desc}</p>
+                    ${tagsHtml}
+                `;
+                
+                menuGrid.appendChild(card);
+            });
+        }
+
+        // Run on load
+        window.onload = () => {
+            initTabs();
+            renderMenu();
+        };
+    </script>
+</body>
+</html>
